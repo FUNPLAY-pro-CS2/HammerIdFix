@@ -1,10 +1,10 @@
 [submodule "vendor/hl2sdk-cs2"]
 	path = vendor/hl2sdk-cs2
-	url = https://github.com/alliedmodders/hl2sdk
+	url = https://github.com/alliedmodders/hl2sdk.git
 	branch = cs2
 [submodule "vendor/metamod-source"]
 	path = vendor/metamod-source
-	url = https://github.com/alliedmodders/metamod-source
+	url = https://github.com/alliedmodders/metamod-source.git
 [submodule "vendor/Protobufs"]
 	path = vendor/Protobufs
 	url = https://github.com/SteamDatabase/Protobufs
