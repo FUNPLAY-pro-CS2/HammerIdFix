@@ -5,8 +5,6 @@
 #include "Shared.h"
 #include "game_system.h"
 #include <tier0/vprof.h>
-
-#include "obfuscate.h"
 #include "dynlibutils/module.h"
 
 CBaseGameSystemFactory** CBaseGameSystemFactory::sm_pFirst = nullptr;
@@ -38,7 +36,7 @@ bool InitGameSystems()
     auto result = libserver.FindPattern(sig_InitAllSystems_pFirst);
     if (!result)
     {
-        Msg(OBF_LITERAL_SAFE("[HammerIdFix] <<< Failed to find IGameSystem_InitAllSystems_pFirst!\n").c_str());
+        Msg("[HammerIdFix] <<< Failed to find IGameSystem_InitAllSystems_pFirst!\n");
         return false;
     }
 
@@ -47,7 +45,7 @@ bool InitGameSystems()
     ptr += 4;
 
     CBaseGameSystemFactory::sm_pFirst = (CBaseGameSystemFactory**)(ptr + offset);
-    CGameSystem::sm_Factory = new CGameSystemStaticFactory<CGameSystem>(OBF_LITERAL_SAFE("HammerIdFix_GameSystem").c_str(), &g_GameSystem);
+    CGameSystem::sm_Factory = new CGameSystemStaticFactory<CGameSystem>("HammerIdFix_GameSystem", &g_GameSystem);
 
     return true;
 }

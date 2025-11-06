@@ -20,12 +20,10 @@ namespace HammerIdFix::Paths {
         return gameDirectory;
     }
 
-    inline std::string GetRootDirectory() { return GameDirectory() + OBF_LITERAL_SAFE("/addons/HammerIdFix"); }
-    inline std::string SimpleAdmin() { return GameDirectory() + OBF_LITERAL_SAFE("/addons/counterstrikesharp/plugins/CS2-SimpleAdmin"); }
-    inline std::string FunPlayCore() { return GameDirectory() + OBF_LITERAL_SAFE("/addons/Core/bin/linuxsteamrt64"); }
-    inline std::string EnginePath() { return GameDirectory() + OBF_LITERAL_SAFE("../bin/linuxsteamrt64/libengine2.so"); }
-    inline std::string Tier0Path() { return GameDirectory() + OBF_LITERAL_SAFE("../bin/linuxsteamrt64/libtier0.so"); }
-    inline std::string ServerPath() { return GameDirectory() + OBF_LITERAL_SAFE("/bin/linuxsteamrt64/libserver.so"); }
-    inline std::string SchemaSystemPath() { return GameDirectory() + OBF_LITERAL_SAFE("../bin/linuxsteamrt64/libschemasystem.so"); }
-    inline std::string VScriptPath() { return GameDirectory() + OBF_LITERAL_SAFE("../bin/linuxsteamrt64/libvscript.so"); }
+    inline std::string GetRootDirectory() { return GameDirectory() + "/addons/HammerIdFix"; }
+    inline std::string EnginePath() { return GameDirectory() + "../bin/linuxsteamrt64/libengine2.so"; }
+    inline std::string Tier0Path() { return GameDirectory() + "../bin/linuxsteamrt64/libtier0.so"; }
+    inline std::string ServerPath() { return GameDirectory() + "/bin/linuxsteamrt64/libserver.so"; }
+    inline std::string SchemaSystemPath() { return GameDirectory() + "../bin/linuxsteamrt64/libschemasystem.so"; }
+    inline std::string VScriptPath() { return GameDirectory() + "../bin/linuxsteamrt64/libvscript.so"; }
 } // namespace HammerIdFix::Paths
