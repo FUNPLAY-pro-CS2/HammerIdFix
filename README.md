@@ -141,7 +141,7 @@ This file contains:
 Vector vecOrigin{};
 QAngle angView{};
 TraceOptions traceOpts{};
-traceOpts.InteractsWith = static_cast<uint64_t>(MASK_SHOT_FULL);
+traceOpts.InteractsWith = static_cast<uint64_t>(MASK_SHOT_PHYSICS);
 traceOpts.DrawBeam = 1;
 
 TraceResult traceResult{};
@@ -189,7 +189,7 @@ public void DoTrace(CCSPlayerController player)
     QAngle angles = player.PlayerPawn.Value!.EyeAngles;
 
     TraceOptions options = new(
-        InteractionLayers.MASK_SHOT_FULL
+        InteractionLayers.MASK_SHOT_PHYSICS
     );
 
     if (CRayTrace.TraceShape(origin, angles, null, options, out TraceResult result))
