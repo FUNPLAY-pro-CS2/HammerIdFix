@@ -1,5 +1,5 @@
 ﻿cmake_minimum_required(VERSION 3.18)
-project(RayTrace C CXX ASM)
+project(HammerIdFix C CXX ASM)
 
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 set(FMT_WERROR OFF CACHE BOOL "" FORCE)
@@ -78,13 +78,13 @@ if (LINUX)
     include(${CMAKE_SOURCE_DIR}/makefiles/linux.base.cmake)
     set_target_properties(${PROJECT_NAME} PROPERTIES
         PREFIX ""
-        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/addons/RayTrace/bin/linuxsteamrt64"
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/addons/HammerIdFix/bin/linuxsteamrt64"
     )
 elseif (WIN32)
     include(${CMAKE_SOURCE_DIR}/makefiles/windows.base.cmake)
     set_target_properties(${PROJECT_NAME} PROPERTIES
         PREFIX ""
-        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/addons/RayTrace/bin/win64"
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/addons/HammerIdFix/bin/win64"
     )
 endif()
 

@@ -12,7 +12,7 @@
 #include <windows.h>
 #endif
 
-namespace RayTracePlugin {
+namespace IPlugin {
     std::shared_ptr<spdlog::logger> Log::m_FP_logger;
 
     void Log::Init() {

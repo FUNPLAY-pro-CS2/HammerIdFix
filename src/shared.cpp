@@ -9,7 +9,7 @@
 #include <sourcehook/sourcehook.h>
 #include <sourcehook/sourcehook_impl.h>
 
-namespace RayTracePlugin::shared
+namespace IPlugin::shared
 {
     ICvar* g_pCVar = nullptr;
     IServerGameDLL* g_pServer = nullptr;
@@ -24,8 +24,6 @@ namespace RayTracePlugin::shared
     CGameEntitySystem* g_pEntitySystem = nullptr;
     IServerGameClients* g_pGameClients = nullptr;
     CGlobalVars *g_pGlobalVars = nullptr;
-    CGameResourceService *g_pGameResourceServiceServer = nullptr;
-    CGameConfig *g_pGameConfig = nullptr;
 
     SourceHook::Impl::CSourceHookImpl source_hook_impl;
     SourceHook::ISourceHook* source_hook = &source_hook_impl;

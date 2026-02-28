@@ -8,14 +8,13 @@
 #include <schemasystem.h>
 #include <vector>
 #include <eiface.h>
-#include <gameconfig.h>
+#include <igameevents.h>
 #include <igameeventsystem.h>
-#include "schema/cgameresourceserviceserver.h"
 #include <sourcehook/sourcehook.h>
 
 class CGameEntitySystem;
 
-namespace RayTracePlugin::shared
+namespace IPlugin::shared
 {
     extern ICvar* g_pCVar;
     extern IServerGameDLL* g_pServer;
@@ -30,8 +29,6 @@ namespace RayTracePlugin::shared
     extern CGameEntitySystem* g_pEntitySystem;
     extern IServerGameClients* g_pGameClients;
     extern CGlobalVars* g_pGlobalVars;
-    extern CGameResourceService* g_pGameResourceServiceServer;
-    extern CGameConfig *g_pGameConfig;
 
     extern SourceHook::ISourceHook *source_hook;
     extern int source_hook_pluginid;
@@ -42,6 +39,6 @@ namespace RayTracePlugin::shared
 }
 
 #undef SH_GLOB_SHPTR
-#define SH_GLOB_SHPTR RayTracePlugin::shared::source_hook
+#define SH_GLOB_SHPTR IPlugin::shared::source_hook
 #undef SH_GLOB_PLUGPTR
-#define SH_GLOB_PLUGPTR RayTracePlugin::shared::source_hook_pluginid
+#define SH_GLOB_PLUGPTR IPlugin::shared::source_hook_pluginid

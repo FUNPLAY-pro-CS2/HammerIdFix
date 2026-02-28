@@ -1,40 +1,40 @@
 #include "Plugin.h"
-#include "path.h"
 #include "Shared.h"
 #include "dynlibutils/module.h"
 #include <entitysystem.h>
 #include "igameevents.h"
 #include <iserver.h>
 #include "schemasystem/schemasystem.h"
-#include "schema/cgameresourceserviceserver.h"
-#include "schema/plat.h"
 #include <filesystem>
 #include <cstdio>
 #include <fstream>
-#include <gameconfig.h>
 #include <regex>
 #include <listeners/Listeners.h>
-#include "CRayTraceInterface.h"
-#include "log.h"
-#include "RayTrace.h"
-#include "tasks.h"
+
+#include "utils/path.h"
+#include "utils/log.h"
+#include "utils/tasks.h"
 
 #define VERSION_STRING SEMVER " @ " GITHUB_SHA
 #define BUILD_TIMESTAMP __DATE__ " " __TIME__
 
-PLUGIN_EXPOSE(RayTrace, RayTracePlugin::g_iPlugin);
+PLUGIN_EXPOSE(RayTrace, IPlugin::g_iPlugin);
 
 CGameEntitySystem* GameEntitySystem()
 {
-    return *reinterpret_cast<CGameEntitySystem**>((uintptr_t)(g_pGameResourceServiceServer) +
-        RayTracePlugin::shared::g_pGameConfig->GetOffset("GameEntitySystem"));
+#ifdef WIN32
+    static int offset = 88;
+#else
+    static int offset = 80;
+#endif
+    return *reinterpret_cast<CGameEntitySystem**>((uintptr_t)(g_pGameResourceServiceServer) + offset);
 }
 
 class GameSessionConfiguration_t
 {
 };
 
-namespace RayTracePlugin
+namespace IPlugin
 {
     IPlugin g_iPlugin;
 
@@ -62,22 +62,9 @@ namespace RayTracePlugin
 
         g_pCVar = shared::g_pCVar;
         g_pSource2GameEntities = shared::g_pGameEntities;
-        shared::g_pGameResourceServiceServer = (CGameResourceService*)g_pGameResourceServiceServer;
-        if (!shared::g_pGameResourceServiceServer)
-            return false;
 
         Log::Init();
         Tasks::Init();
-
-        auto gamedata_path = std::string(Paths::GetRootDirectory() + "/gamedata.json");
-        shared::g_pGameConfig = new CGameConfig(gamedata_path);
-        char conf_error[255] = "";
-
-        if (!shared::g_pGameConfig->Init(conf_error, sizeof(conf_error)))
-        {
-            FP_ERROR("Could not read '{}'. Error: {}", gamedata_path, conf_error);
-            return false;
-        }
 
         g_SMAPI->AddListener(this, this);
         Listeners::InitListeners();
@@ -88,7 +75,7 @@ namespace RayTracePlugin
         if (late)
         {
             shared::g_pEntitySystem = GameEntitySystem();
-            RayTrace::Initialize();
+            shared::g_pEntitySystem->AddListenerEntity(&Listeners::entityListener);
             shared::g_bDetoursLoaded = true;
         }
 
@@ -98,6 +85,8 @@ namespace RayTracePlugin
 
     bool IPlugin::Unload(char* error, size_t maxlen)
     {
+        shared::g_bDetoursLoaded = false;
+
         Listeners::DestructListeners();
         Tasks::Shutdown();
 
@@ -106,17 +95,6 @@ namespace RayTracePlugin
         Log::Close();
 
         return true;
-    }
-
-    void *IPlugin::OnMetamodQuery(const char *iface, int *ret) {
-        if (strcmp(iface, RAYTRACE_INTERFACE_VERSION) == 0) {
-            *ret = META_IFACE_OK;
-            FP_INFO("{} accessed.", RAYTRACE_INTERFACE_VERSION);
-            return &RayTrace::g_CRayTrace;
-        }
-
-        *ret = META_IFACE_FAILED;
-        return nullptr;
     }
 
     const char* IPlugin::GetAuthor() { return "Slynx, contributors"; }
