@@ -3,7 +3,7 @@
 // Copyright (c) 2025 slynxcz. All rights reserved.
 //
 #include "Listeners.h"
-#include "Shared.h"
+#include "shared.h"
 #include <dynlibutils/module.h>
 
 #include "utils/plat.h"
@@ -12,25 +12,29 @@ class GameSessionConfiguration_t
 {
 };
 
-namespace IPlugin::Listeners {
+namespace IPlugin::Listeners
+{
     SourceHooks sourceHooks;
     CEntityListener entityListener;
 
-    SH_DECL_HOOK3_void(INetworkServerService, StartupServer, SH_NOATTRIB, 0, const GameSessionConfiguration_t&, ISource2WorldSession*, const char*);
+    SH_DECL_HOOK3_void(INetworkServerService, StartupServer, SH_NOATTRIB, 0, const GameSessionConfiguration_t&,
+                       ISource2WorldSession*, const char*);
 
-    void InitListeners() {
+    void InitListeners()
+    {
         SH_ADD_HOOK(INetworkServerService, StartupServer, shared::g_pNetworkServerService,
                     SH_MEMBER(&sourceHooks, &SourceHooks::Hook_StartupServer), true);
     }
 
-    void DestructListeners() {
+    void DestructListeners()
+    {
         SH_REMOVE_HOOK(INetworkServerService, StartupServer, shared::g_pNetworkServerService,
-                    SH_MEMBER(&sourceHooks, &SourceHooks::Hook_StartupServer), true);
+                       SH_MEMBER(&sourceHooks, &SourceHooks::Hook_StartupServer), true);
         shared::g_pEntitySystem->RemoveListenerEntity(&entityListener);
     }
 
     void SourceHooks::Hook_StartupServer(const GameSessionConfiguration_t& config,
-                                            ISource2WorldSession*, const char*)
+                                         ISource2WorldSession*, const char*)
     {
         if (!shared::g_bDetoursLoaded)
         {

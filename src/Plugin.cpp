@@ -1,5 +1,5 @@
 #include "Plugin.h"
-#include "Shared.h"
+#include "shared.h"
 #include "dynlibutils/module.h"
 #include <entitysystem.h>
 #include "igameevents.h"
