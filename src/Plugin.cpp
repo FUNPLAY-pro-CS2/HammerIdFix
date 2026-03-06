@@ -18,7 +18,7 @@
 #define VERSION_STRING SEMVER " @ " GITHUB_SHA
 #define BUILD_TIMESTAMP __DATE__ " " __TIME__
 
-PLUGIN_EXPOSE(RayTrace, IPlugin::g_iPlugin);
+PLUGIN_EXPOSE(HammerIdFix, IPlugin::g_iPlugin);
 
 CGameEntitySystem* GameEntitySystem()
 {
@@ -97,12 +97,12 @@ namespace IPlugin
         return true;
     }
 
-    const char* IPlugin::GetAuthor() { return "Slynx, contributors"; }
-    const char* IPlugin::GetName() { return "RayTrace"; }
-    const char* IPlugin::GetDescription() { return "RayTrace Metamod plugin for CS2 servers."; }
+    const char* IPlugin::GetAuthor() { return "Slynx"; }
+    const char* IPlugin::GetName() { return "HammerIdFix"; }
+    const char* IPlugin::GetDescription() { return "HammerIdFix Metamod plugin for CS2 servers."; }
     const char* IPlugin::GetURL() { return "https://slynxdev.cz"; }
     const char* IPlugin::GetLicense() { return "GPLv3"; }
     const char* IPlugin::GetVersion() { return VERSION_STRING; }
     const char* IPlugin::GetDate() { return BUILD_TIMESTAMP; }
-    const char* IPlugin::GetLogTag() { return "RayTrace"; }
+    const char* IPlugin::GetLogTag() { return "HammerIdFix"; }
 }

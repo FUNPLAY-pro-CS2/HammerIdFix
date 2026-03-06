@@ -1,5 +1,5 @@
 "Metamod Plugin"
 {
-	"alias"	"RayTrace"
-	"file"	"addons/RayTrace/bin/${PROJECT_VDF_PLATFORM}/RayTrace"
+	"alias"	"HammerIdFix"
+	"file"	"addons/HammerIdFix/bin/${PROJECT_VDF_PLATFORM}/HammerIdFix"
 }
